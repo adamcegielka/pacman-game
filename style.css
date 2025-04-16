@@ -90,7 +90,7 @@
     height: 25%;
     width: 25%;
     border-radius: 50%;
-    background-color: #54b7e7;
+    background-color: white;
 }
 
 .superdot {
@@ -100,13 +100,13 @@
     height: 50%;
     width: 50%;
     border-radius: 50%;
-    background-color: #f7941d;
+    background-color: #f26530;
 }
 
 .wall {
     height: 100%;
     width: 100%;
-    background-color: #f26530;
+    background-color: #54b7e7;
 }
 
 .grid {
