@@ -19,8 +19,8 @@ This project was created to practice core JavaScript concepts including:
 
 ## 🚀 How to Run the Game
 
-You can play the game instantly here:
-🔗 (Play PacMan on Netlify)[#]
+You can play the game directly in your browser here:  
+🔗 [Play PacMan on GitHub Pages](https://adamcegielka.github.io/pacman-game/)
 
 Or run it locally:
 
