@@ -43,3 +43,10 @@ No additional setup or dependencies required.
 This project is based on the Udemy course:  
 **"JavaScript DOM Pacman Game Project Learn JavaScript Code"**  
 🔗 [View the course on Udemy](https://www.udemy.com/course/javascript-game-js)
+
+## 🔗 Useful Resources
+
+- [MDN: CSS `grid-template-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns)
+- [MDN: JavaScript `addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
+- [JavaScript Game Loop Explained](https://dev.to/raajanraj/what-is-the-game-loop-in-javascript-3p29)
+- [HTML Audio API](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement)
