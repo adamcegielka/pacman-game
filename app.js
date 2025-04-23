@@ -1,16 +1,10 @@
 const board = ["pink", "blue", "green", "red", "purple", "orange"];
 const myBoard = [];
 const tempBoard = [
-  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-  1, 2, 3, 2, 2, 2, 2, 2, 2, 1, 
-  1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 
-  1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 
-  1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 
-  1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 
-  1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 
-  1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 
-  1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 
-  1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 1, 1,
+  1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2,
+  2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2,
+  2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 ];
 const ghosts = [];
 const g = {
@@ -22,7 +16,7 @@ const g = {
   inplay: false,
 };
 const player = {
-  pos: 20,
+  pos: 32,
   speed: 4,
   cool: 0,
   pause: false,
@@ -35,25 +29,39 @@ document.addEventListener("DOMContentLoaded", () => {
   g.mouth = document.querySelector(".mouth");
   g.ghost = document.querySelector(".ghost");
   g.ghost.style.display = "none";
+  g.pacman.style.display = "none";
   createGame(); //create game board
-//   console.log(g);
+  //   console.log(g);
+});
+
+document.addEventListener("keydown", (e) => {
+  player.play = requestAnimationFrame(move);
 });
 
 function createGhost() {
-    let newGhost = g.ghost.cloneNode(true);
-    console.log(newGhost);
-    newGhost.pos = 15 + ghosts.length;
-    newGhost.style.display = "block";
-    newGhost.style.backgroundColor = board[ghosts.length];
-    newGhost.namer = board[ghosts.length] + 'y';
-    ghosts.push(newGhost);
-    console.log(newGhost);
+  let newGhost = g.ghost.cloneNode(true);
+  console.log(newGhost);
+  newGhost.pos = 11 + ghosts.length;
+  newGhost.style.display = "block";
+  newGhost.style.backgroundColor = board[ghosts.length];
+  newGhost.namer = board[ghosts.length] + "y";
+  ghosts.push(newGhost);
+  console.log(newGhost);
+}
+
+function move() {
+  console.log(ghosts);
+  ghosts.forEach((ghost) => {
+    myBoard[ghost.pos].append(ghost);
+  });
+  g.pacman.style.display = "block";
+  myBoard[player.pos].append(g.pacman);
 }
 
 function createGame() {
-    for(let i = 0; i < g.ghosts; i++) {
-        createGhost();
-    }
+  for (let i = 0; i < g.ghosts; i++) {
+    createGhost();
+  }
   tempBoard.forEach((cell) => {
     // console.log(cell);
     createSquare(cell);
@@ -86,5 +94,7 @@ function createSquare(val) {
   myBoard.push(div);
   div.t = val;
   div.idVal = myBoard.length;
-  div.addEventListener("click", (e) => {});
+  div.addEventListener("click", (e) => {
+    console.dir(div)
+  });
 }
