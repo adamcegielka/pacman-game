@@ -12,6 +12,7 @@ const tempBoard = [
   1,2,2,2,2,2,2,2,2,1,
   1,1,1,1,1,1,1,1,1,1
 ];
+
 const keyz = {
   ArrowRight: false,
   ArrowLeft: false,
@@ -51,7 +52,11 @@ document.addEventListener("keydown", (e) => {
   if (e.code in keyz) {
     keyz[e.code] = true;
   }
-  player.play = requestAnimationFrame(move);
+  if (!g.inplay && !player.pause) {
+    g.pacman.style.display = "block";
+    player.play = requestAnimationFrame(move);
+    g.inplay = true;
+  }
 });
 
 document.addEventListener("keyup", (e) => {
@@ -71,24 +76,42 @@ function createGhost() {
 }
 
 function move() {
-  console.log(ghosts);
-  ghosts.forEach((ghost) => {
-    myBoard[ghost.pos].append(ghost);
-  });
-  if (keyz.ArrowRight) {
-    player.pos += 1;
-  } else if (keyz.ArrowLeft) {
-    player.pos -= 1;
-  } else if (keyz.ArrowUp) {
-    player.pos -= g.size;
-  } else if (keyz.ArrowDown) {
-    player.pos += g.size;
-  }
+  if (g.inplay) {
+    player.cool--; //player cooldown slowdown
+    if (player.cool < 0) {
+      //console.log(ghosts);
+      //placing movement of ghosts
+      ghosts.forEach((ghost) => {
+        myBoard[ghost.pos].append(ghost);
+      });
+      //Keyboard events movement of player
+      let tempPos = player.pos; //current pos
+      if (keyz.ArrowRight) {
+        player.pos += 1;
+      } else if (keyz.ArrowLeft) {
+        player.pos -= 1;
+      } else if (keyz.ArrowUp) {
+        player.pos -= g.size;
+      } else if (keyz.ArrowDown) {
+        player.pos += g.size;
+      }
+      let newPlace = myBoard[player.pos]; //future position
+      if (newPlace.t == 1) {
+        console.log("wall");
+        player.pos = tempPos;
+      }
+      if (newPlace.t == 2) {
+        console.log("dot");
+        myBoard[player.pos].innerHTML = "";
+        newPlace.t = 0;
+      }
+      player.cool = player.speed; // set cooloff
 
-  console.log(player.pos);
-  g.pacman.style.display = "block";
-  myBoard[player.pos].append(g.pacman);
-  player.play = requestAnimationFrame(move);
+      console.log(newPlace.t);
+    }
+    myBoard[player.pos].append(g.pacman);
+    player.play = requestAnimationFrame(move);
+  }
 }
 
 function createGame() {
@@ -125,7 +148,7 @@ function createSquare(val) {
   } //add superdot
   g.grid.append(div);
   myBoard.push(div);
-  div.t = val;
+  div.t = val; // element type of content
   div.idVal = myBoard.length;
   div.addEventListener("click", (e) => {
     console.dir(div);
